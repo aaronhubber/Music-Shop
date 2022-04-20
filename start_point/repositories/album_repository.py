@@ -1,6 +1,7 @@
 from db.run_sql import run_sql
 
 from models.album import Album
+from models.artist import Artist
 
 import repositories.artist_repository as artist_repository
 
@@ -25,21 +26,21 @@ def select_all():
     return albums 
     
 
-# def select(id):
-#     album = None
-#     sql = "SELECT * FROM albums WHERE id = %s"  
-#     values = [id] 
-#     result = run_sql(sql, values)[0]
+def select(id):
+    album = None
+    sql = "SELECT * FROM albums WHERE id = %s"  
+    values = [id] 
+    result = run_sql(sql, values)[0]
     
-#     if result is not None:
-#         artist = artist_repository.select(result['artist_id']) 
-#         album = Album(result['title'], result['genre'], artist, result['id'])
-#     return album
+    if result is not None:
+        artist = artist_repository.select(result['artist_id']) 
+        album = Album(result['title'], result['genre'], artist, result['id'])
+    return album
 
 
-# def delete_all():
-#     sql = "DELETE  FROM albums" 
-#     run_sql(sql)
+def delete_all():
+    sql = "DELETE  FROM albums" 
+    run_sql(sql)
 
 def delete(id):
     sql = "DELETE  FROM albums WHERE id = %s" 
@@ -47,7 +48,7 @@ def delete(id):
     run_sql(sql, values)
 
 
-# def update(album):
-#     sql = "UPDATE albums SET (name) = (%s) WHERE id = %s"
-#     values = [album.title, album.genre, album.artist.id, album.id]
-#     run_sql(sql, values)
+def update(album):
+    sql = "UPDATE albums SET (name) = (%s) WHERE id = %s"
+    values = [album.title, album.genre, album.artist.id, album.id]
+    run_sql(sql, values)
